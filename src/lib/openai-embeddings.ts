@@ -6,7 +6,7 @@ const config = new Configuration({
 
 const openai = new OpenAIApi(config);
 
-export async function getEmbeddings(text: string) {
+export async function openAIEmbeddings(text: string) {
   try {
     const response = await openai.createEmbedding({
       model: "text-embedding-ada-002",

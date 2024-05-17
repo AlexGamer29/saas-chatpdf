@@ -5,7 +5,8 @@ import {
   Document,
   RecursiveCharacterTextSplitter,
 } from "@pinecone-database/doc-splitter";
-import { getEmbeddings } from "./embeddings";
+import { openAIEmbeddings } from "./openai-embeddings";
+import { geminiEmbeddings } from "./gemini-embeddings";
 import md5 from "md5";
 import { convertToAscii } from "./utils";
 
@@ -47,7 +48,8 @@ export async function loadS3IntoPinecone(fileKey: string) {
 
 async function embedDocument(doc: Document) {
   try {
-    const embeddings = await getEmbeddings(doc.pageContent);
+    // const embeddings = await getEmbeddings(doc.pageContent);
+    const embeddings = await geminiEmbeddings(doc.pageContent);
     const hash = md5(doc.pageContent);
     return {
       id: hash,
